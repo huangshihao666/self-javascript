@@ -1,0 +1,61 @@
+<script>
+// 继承
+
+/* 一、ES5的继承(原型链继承)  */
+    // 父类的实例赋值给子类的原型
+    function Parent(name) {
+        this.name = name;
+        this.hobby = ['sing', 'palyGames'];
+    }
+    function Child() {}
+    Child.prototype = new Parent(); // 继承
+    const child1 = new Child();
+    child1.hobby.push('run')
+    const child2 = new Child();
+    console.log(child2.hobby); // ['sing', 'palyGames', 'run']
+
+    // 原型链的继承的弊端：
+    // 1、原型中包含的引用类型的属性会被所有实例共享；
+    // 2、子类在实例化的时候不能给父类传参；
+
+
+
+/* 二、通过构造函数实现继承 */
+    function People(name) {
+        this.name = name;
+        this.hobby = ['eat', 'drink'];
+        this.getName = function() {
+            return this.name;
+        }
+    }
+    function Man(name) {
+        People.call(this, name);
+    }
+    const man1 = new Man('jack');
+    console.log(man1.getName()); // jack
+    man1.hobby.push('swimming')
+    const man2 = new Man('jim');
+    console.log(man2.hobby);
+
+    // 这种继承方式，解决了原型链继承原型上的引用类型的属性所有实例共享的问题；但是由于方法必须写在构造函数里，每次创建子类实例，都会执行一遍；
+
+
+
+/* 三、ES6的继承 */
+    class Animal {
+        constructor(name) {
+            this.name = name;
+        }
+        getName() {
+            return this.name;
+        }
+    }
+    class Dog extends Animal {
+        constructor(name) {
+            super(name) // 必须要执行super方法，其实就是执行父类的构造函数
+        }
+    }
+    const dog1 = new Dog('dog');
+    console.log(dog1.getName());
+
+</script>
