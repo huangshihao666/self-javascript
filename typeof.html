@@ -1,0 +1,28 @@
+<script>
+    // 判断js数据类型
+
+    // 1、typeof
+    // typeof 能判断大部分的数据类型，但是对于null、{}、[]返回的都是object
+    typeof '111' // string
+    typeof 111 // number
+    typeof undefined // undefined
+    typeof Symbol(1) // symbol
+
+    // 2、data.constructor
+    // 通过数据的constructor属性判断；除了null、undefined，其他的基本都能判断
+    console.log([1,2,3].constructor === Array) // true
+    console.log({}.constructor === Object) // true
+    console.log('111'.constructor === String) // true
+    console.log(true.constructor === Boolean) // true
+
+    // 3、通过Object.prototype.toString()实现所有类型的判断
+    const newTypeof = (data) => Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
+
+    console.log(newTypeof(111)) // number
+    console.log(newTypeof('111')) // string
+    console.log(newTypeof(undefined)) // undefined
+    console.log(newTypeof(null)) // null
+    console.log(newTypeof([])) // array
+    console.log(newTypeof({})) // object
+    console.log(newTypeof(Symbol(1))) // symbol
+</script>
