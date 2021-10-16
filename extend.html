@@ -35,7 +35,7 @@
     console.log(man1.getName()); // jack
     man1.hobby.push('swimming')
     const man2 = new Man('jim');
-    console.log(man2.hobby);
+    console.log(man2.hobby); // ['eat', 'drink'] 各个实例不共享
 
     // 这种继承方式，解决了原型链继承原型上的引用类型的属性所有实例共享的问题；但是由于方法必须写在构造函数里，每次创建子类实例，都会执行一遍；
 
