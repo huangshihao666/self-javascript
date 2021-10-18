@@ -1,0 +1,32 @@
+<script>
+// 实现call
+Function.prototype.newCall = function(context) {
+    // 第一个参数为 obj,因为obj没有getName方法,所以给obj定义个getName方法,这里用fn表示
+    context.fn = this || window // this为当前的函数
+
+    // 获取参数 从第2位开始
+    let args = [];
+    for(let i = 1; i < arguments.length; i++) {
+        args.push(`arguments[${i}]`);
+    }
+
+    // 执行fn方法 把fn的返回结果return出去
+    const res = eval(`context.fn(${args})`)
+
+    delete context.fn
+    
+    return res
+}
+
+// test
+const obj = {
+    name: 'jack',
+}
+const getName = function(firstName, lastName) {
+    return `${firstName}-${lastName},${this.name}`
+}
+
+console.log(getName.newCall(obj, 'hello', 'world'))
+
+
+</script>
