@@ -1,0 +1,30 @@
+<script>
+    // new操作符 手写模拟实现
+    // 1、返回一个新对象
+    // 2、新对象的__proto__ 等于 构造函数的prototype
+    // 3、新对象继承构造函数的属性
+
+    function new1() {
+        // 创建一个新对象，最后return出去
+        let obj = {};
+        // 利用数组的shift方法取到第一个参数；shift方法可以操作类数组的数据，并返回删除的第一条数据，即传入的构造函数
+        const constructor = [].shift.call(arguments)
+        // 使实例的__proto__指向构造函数的prototype
+        obj.__proto__ = constructor.prototype;
+        // 使构造函数的this指向这个新对象（也就是构造函数的实例）
+        const ret = constructor.apply(obj, arguments);
+        // 这里有个判断，如果构造函数有返回值时，判断返回值是不是对象类型，如果是则返回，如果不是则把obj返回；
+        return typeof ret === 'object' ? ret : obj
+    }
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.say = function() {
+        console.log('i am ' + this.name);
+    };
+    const p = new1(Person, 'jack', 18);
+    console.log(p);
+    p.say();
+</script>
