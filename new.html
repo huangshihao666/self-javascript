@@ -1,8 +1,8 @@
 <script>
     // new操作符 手写模拟实现
-    // 1、返回一个新对象
-    // 2、新对象的__proto__ 等于 构造函数的prototype
-    // 3、新对象继承构造函数的属性
+    // 1、返回一个新对象；
+    // 2、新对象继承构造函数的属性, 即新对象的__proto__ 等于 构造函数的prototype；
+    // 3、构造函数有返回值的情况,值类型和引用类型的判断；
 
     function new1() {
         // 创建一个新对象，最后return出去
@@ -20,11 +20,13 @@
     function Person(name, age) {
         this.name = name;
         this.age = age;
+        return {
+            name,
+            sex: 'male'
+        }
     }
-    Person.prototype.say = function() {
-        console.log('i am ' + this.name);
-    };
     const p = new1(Person, 'jack', 18);
+    // const p = new Person('jack', 18);
     console.log(p);
-    p.say();
+    
 </script>

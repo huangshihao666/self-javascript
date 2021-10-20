@@ -1,0 +1,35 @@
+<script>
+    // 模拟实现 instanceof 运算符
+    // instanceof 运算符用于检测构造函数的prototype的属性是否存在某个实例对象的原型链上
+
+    function instanceof1(left, right) {
+        // 获取实例对象的__proto__
+        let proto = left.__proto__;
+        while(true) {
+            if(proto === null) return false;
+            if(proto === right.prototype) {
+                return true;
+            }
+            // 递归去原型链上查找
+            proto = proto.__proto__;
+        }
+    }
+
+
+
+    // 测试
+
+    function Person(name) {
+        this.name = name;
+    }
+    const p = new Person('jack')
+    const p1 = new Object();
+
+    console.log(instanceof1(p, Person)); // true
+    console.log(instanceof1(p1, Person)); // false
+    console.log(instanceof1(p, Object)); // true
+    console.log(instanceof1(p1, Object)); // true
+    
+
+    
+</script>
