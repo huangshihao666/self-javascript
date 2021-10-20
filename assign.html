@@ -1,0 +1,41 @@
+<script>
+    // 模拟实现 Object.assign()方法
+    // 1、返回一个新对象
+    // 2、会改变第一个参数
+    Object.assign2 = function(target, ...objArr) {
+        // 目标对象不能为null
+        if(target === null) {
+            throw new Error('Cannot convert undefined or null to object');
+        }
+
+        // 遍历剩余参数 objArr是剩余参数数组
+        objArr.forEach((obj) => {
+            if(obj) {
+                // 把每个对象的属性添加到目标对象 target 上
+                for (const key in obj) {
+                    // 只添加可枚举属性
+                    if (Object.hasOwnProperty.call(obj, key)) {
+                        target[key] = obj[key]
+                    }
+                }
+            }
+        })
+
+        return target
+
+    }
+
+
+    const o1 = {
+        a: 1,
+        b: 1
+    }
+    const o2 = {
+        b: 2
+    }
+    Object.assign(o1, o2)
+    console.log(o1, o2); // {a:1, b:2}   {b:2}
+
+    // const o3 = Object.assign2({}, o1, o2) 
+    // console.log(o3, o1, o2); // {a:1, b:2}  {a: 1, b:1}  {b: 2}
+</script>
